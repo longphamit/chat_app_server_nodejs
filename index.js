@@ -1,6 +1,8 @@
 const app = require('express')()
 const http = require('http');
 const server = http.createServer(app);
+var cors = require('cors')
+app.use(cors())
 const { Server } = require("socket.io");
 const io = new Server(server);
 
@@ -15,6 +17,9 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
       console.log('user disconnected');
     });
+    socket.on('/test', function (msg) {
+      console.log(msg);
+  });
   });
 // io.on('connection', socket => {
 //     //Get the chatID of the user and join in a room of the same chatID
