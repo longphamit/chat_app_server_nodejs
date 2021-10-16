@@ -5,7 +5,7 @@ require('dotenv').config();
 app.get('/', (req, res) => {
     res.send("Node Server is running. Yay!!")
 })
-io.on('connection', socket => {
+io.on('connect', socket => {
     console.log("hello")
     //Get the chatID of the user and join in a room of the same chatID
     chatID = socket.handshake.query.chatID
