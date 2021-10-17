@@ -1,32 +1,25 @@
-// mongo connection
-// var db; // Instance Connection
-// const mongodb = require("./mongo");
-// mongodb.then(v => {
-//   db = v
-//   console.log("Connection mongodb successfully: ", db.db.namespace);
-// }).catch(e => console.log(e));
-// end of mongo connection
-
-const app = require('express')()
+const express = require('express');
+const app = express()
 const http = require('http');
 const server = http.createServer(app);
-var cors = require('cors')
-app.use(cors())
+
 const { Server } = require("socket.io");
 const io = new Server(server);
 
-require('dotenv').config();
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/home.html');
-  });
-  app.get('/user', (req, res) => {
-    return res.status(200).json({
-      id: "123456",
-      name: "vinh",
-      img: "https://google.com"
-    });
-  });
-console.log("set Socket");
+const db = require('./config/db');
+db.connect();
+
+const route = require('./routes/index');
+
+var cors = require('cors')
+app.use(cors())
+app.use(
+  express.urlencoded({
+      extended: true,
+  }),
+);
+app.use(express.json());
+
 io.on('connection', (socket) => {
     console.log("user connect");
     socket.on('disconnect', () => {
@@ -58,6 +51,7 @@ io.on('connection', (socket) => {
 //         })
 //     })
 // });
+route(app);
 server.listen(process.env.PORT || 5000, () => {
     console.log('listening on *:5000');
   });
