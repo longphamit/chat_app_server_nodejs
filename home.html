@@ -54,9 +54,18 @@
         background: #efefef;
       }
     </style>
+  </head>
+
+  <body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
+      var messages = document.getElementById('messages');
       var form = document.getElementById('form');
       var input = document.getElementById('input');
 
@@ -67,13 +76,14 @@
           input.value = '';
         }
       });
-    </script>
-  </head>
 
-  <body>
-    <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
+      socket.on('chat message', function(msg) {
+        var item = document.createElement('li');
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    </script>
+    </scirpt>
   </body>
 </html>

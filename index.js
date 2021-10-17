@@ -1,10 +1,10 @@
 // mongo connection
-var db; // Instance Connection
-const mongodb = require("./mongo");
-mongodb.then(v => {
-  db = v
-  console.log("Connection mongodb successfully: ", db.db.namespace);
-}).catch(e => console.log(e));
+// var db; // Instance Connection
+// const mongodb = require("./mongo");
+// mongodb.then(v => {
+//   db = v
+//   console.log("Connection mongodb successfully: ", db.db.namespace);
+// }).catch(e => console.log(e));
 // end of mongo connection
 
 const app = require('express')()
@@ -21,14 +21,14 @@ app.get('/', (req, res) => {
   });
 console.log("set Socket");
 io.on('connection', (socket) => {
-    console.log('a user connected');
-    console.log(socket.handshake.query)
+    io.emit("user connection");
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+    console.log('user disconnected');
     });
-    socket.on('/test', function (msg) {
+    socket.on('chat message', function (msg) {
       console.log(msg);
-  });
+      io.emit('chat message', msg);
+    });
   });
 // io.on('connection', socket => {
 //     //Get the chatID of the user and join in a room of the same chatID
