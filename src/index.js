@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const app = express()
 const http = require('http');
 const server = http.createServer(app);
@@ -15,7 +16,7 @@ var cors = require('cors')
 app.use(cors())
 app.use(
   express.urlencoded({
-      extended: true,
+      extended: false,
   }),
 );
 app.use(express.json());
