@@ -12,6 +12,13 @@ class MessageController {
            receiver: receiver
        });
     }
+    async getMessageByReceiverId(req, res, next) {
+        const { receiverId } = req.query;
+        const message = await Message.find({ ReceiverId: receiverId }).exec();
+        return  res.status(200).json({
+            message: message,
+        });
+     }
     create(req, res, next) {
         const { senderId, receiverId, content } = req.body;
         Message.create({SenderId: senderId, ReceiverId: receiverId, Content: content}).then(result => {

@@ -4,6 +4,7 @@ const router = express.Router();
 const messageController = require('../app/controllers/MessageController');
 
 router.get('/', messageController.getMessageByIndividual);
+router.get('/receive-id', messageController.getMessageByReceiverId);
 router.post('/', messageController.create);
 router.get('/get-all', messageController.getAll);
 

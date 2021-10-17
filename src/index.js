@@ -54,5 +54,6 @@ io.on('connection', (socket) => {
 // });
 route(app);
 server.listen(process.env.PORT || 5000, () => {
-    console.log('listening on *:5000');
+    var port = server.address().port
+    console.log(`listening on *:${port}`);
   });
