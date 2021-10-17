@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-const User = new Schema({
+const UserSchema = new Schema({
   Id: ObjectId,
   Username: String,
   Password: String,
@@ -12,4 +12,4 @@ const User = new Schema({
     default: ""
   },
 });
-module.exports = new mongoose.model('User', User);
+module.exports = mongoose.model('User', UserSchema);

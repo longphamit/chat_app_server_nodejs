@@ -3,12 +3,11 @@ const { mongooseObject } = require('../../utils/mongoose');
 
 class UserController {
     // [GET]
-    getUser(req, res, next) {
-        return res.status(200).json({
-            id: "123456",
-            name: "vinh",
-            img: "https://google.com"
-          });
+    async getUser(req, res, next) {
+       const { username, password } = req.query;
+       const user = await User.find({ Username: username, Password: password}).exec();
+       if(user[0]) return  res.status(200).json(user);
+       return res.status(400).json({});
     }
 
 }
