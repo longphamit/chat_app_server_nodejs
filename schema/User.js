@@ -4,6 +4,8 @@ const ObjectId = Schema.ObjectId;
 
 const User = new Schema({
   Id: ObjectId,
+  Username: String,
+  Password: String,
   Name: String,
   Image: {
     type: String,

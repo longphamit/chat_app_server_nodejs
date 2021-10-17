@@ -19,9 +19,16 @@ require('dotenv').config();
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/home.html');
   });
+  app.get('/user', (req, res) => {
+    return res.status(200).json({
+      id: "123456",
+      name: "vinh",
+      img: "https://google.com"
+    });
+  });
 console.log("set Socket");
 io.on('connection', (socket) => {
-    io.emit("user connection");
+    console.log("user connect");
     socket.on('disconnect', () => {
     console.log('user disconnected');
     });
