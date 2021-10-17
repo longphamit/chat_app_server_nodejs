@@ -3,10 +3,14 @@ const { mongooseObject } = require('../../utils/mongoose');
 
 class MessageController {
     // [GET]
-    async getMessageByUserId(req, res, next) {
+    async getMessageByIndividual(req, res, next) {
        const { senderId, receiverId } = req.query;
-       const user = await Message.find({ SenderId: senderId, ReceiverId: receiverId }).exec();
-       return  res.status(200).json(user);
+       const sender = await Message.find({ SenderId: senderId, ReceiverId: receiverId }).exec();
+       const receiver = await Message.find({ SenderId: receiverId, ReceiverId: senderId }).exec();
+       return  res.status(200).json({
+           sender: sender,
+           receiver: receiver
+       });
     }
     create(req, res, next) {
         const { senderId, receiverId, content } = req.body;
