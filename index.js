@@ -1,9 +1,12 @@
-var db;
+// mongo connection
+var db; // Instance Connection
 const mongodb = require("./mongo");
 mongodb.then(v => {
   db = v
   console.log("Connection mongodb successfully: ", db.db.namespace);
 }).catch(e => console.log(e));
+// end of mongo connection
+
 const app = require('express')()
 const http = require('http');
 const server = http.createServer(app);
