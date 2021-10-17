@@ -1,3 +1,9 @@
+var db;
+const mongodb = require("./mongo");
+mongodb.then(v => {
+  db = v
+  console.log("Connection mongodb successfully: ", db.db.namespace);
+}).catch(e => console.log(e));
 const app = require('express')()
 const http = require('http');
 const server = http.createServer(app);
