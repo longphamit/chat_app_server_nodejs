@@ -1,16 +1,17 @@
+const Message = require("../app/models/Message");
+const GROUP_MESSAGE="GROUP_MESSAGE";
 //Send message to only a particular user
 const GroupSocket=(socket)=>{
-    console.log("group_message");
-    socket.on("GROUP_MESSAGE", (message) => {
-        // var receiverChatID = message.receiverChatID;
-        // var senderChatID = message.senderChatID;
-        // var senderChatName = message.senderChatName;
-        // var content = message.content;
+    socket.on(GROUP_MESSAGE, (message) => {
+        var receiverId = message.receiverChatID;
+        var senderId = message.senderChatID;
+        var senderName = message.senderChatName;
+        var content = message.content;
         //save message to db
-        //Message 
-        //emit message to user in room
-        //socket.to(chatID).emit("event","meo meo");
-        socket.emit("GROUP_MESSAGE","meo meo");
+        Message.create({SenderId: senderId,SenderName:senderName, ReceiverId: receiverId, Content: content}).then(result => {
+            //emit message to user in room
+            socket.to(receiverId).emit(GROUP_MESSAGE,result);
+        }).catch(next);
     });
 }
 module.exports = GroupSocket;
