@@ -3,9 +3,9 @@ const bodyParser = require("body-parser");
 const app = express()
 const http = require('http');
 const server = http.createServer(app);
-
+const path = require("path");
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = require('socket.io')(server);
 
 const db = require('./config/db');
 db.connect();
@@ -20,7 +20,10 @@ app.use(
   }),
 );
 app.use(express.json());
-
+app.get("/home", function(req, res)
+	{
+    res.sendFile(path.join(__dirname+'/home.html'));
+	});
 io.on('connection', (socket) => {
     console.log("user connect");
     socket.on('disconnect', () => {
