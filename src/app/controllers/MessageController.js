@@ -20,8 +20,8 @@ class MessageController {
         });
      }
     create(req, res, next) {
-        const { senderId, receiverId, content } = req.body;
-        Message.create({SenderId: senderId, ReceiverId: receiverId, Content: content}).then(result => {
+        const { senderId, senderName, receiverId, content } = req.body;
+        Message.create({SenderId: senderId,SenderName:senderName, ReceiverId: receiverId, Content: content}).then(result => {
             res.status(201).json(result);
         })
         .catch(next);
