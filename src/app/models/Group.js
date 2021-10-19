@@ -7,4 +7,4 @@ const Group = new Schema({
   Member: [],
   Name:String
 });
-module.exports = new mongoose.model('Group', Group);
+module.exports = mongoose.model('Group', Group);

@@ -29,5 +29,12 @@ class MessageController {
     getAll(req,res,next) {
         Message.find({}).then(messages => res.status(200).json(messages)).catch(next);
     }
+    async getMessagePeerByPeerId(req, res, next) {
+        const { peerId } = req.query;
+        const message = await Message.find({ ReceiverId: peerId }).exec();
+        return  res.status(200).json({
+            message: message,
+        });
+    }
 }
 module.exports = new MessageController();

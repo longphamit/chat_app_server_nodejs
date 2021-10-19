@@ -10,4 +10,4 @@ const Message = new Schema({
   Content: String,
   CreateDate: { type: Date, default: Date.now },
 });
-module.exports = new mongoose.model('Message', Message);
+module.exports = mongoose.model('Message', Message);
