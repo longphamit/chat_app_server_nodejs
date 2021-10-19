@@ -12,7 +12,7 @@ const GroupSocket=(socket)=>{
         Message.create({SenderId: senderId,SenderName:senderName, ReceiverId: receiverId, Content: content}).then(result => {
             //emit message to user in room
             socket.to(receiverId).emit(GROUP_MESSAGE,result);
-        }).catch(next);
+        }).catch(e=>{console.log(e)});
     });
 }
 module.exports = GroupSocket;
