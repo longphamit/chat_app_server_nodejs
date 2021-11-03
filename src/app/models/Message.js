@@ -4,9 +4,9 @@ const ObjectId = Schema.ObjectId;
 
 const Message = new Schema({
   Id: ObjectId,
-  SenderId: ObjectId,
+  SenderId: String,
   SenderName:String,
-  ReceiverId: ObjectId,
+  ReceiverId: String,
   Content: String,
   CreateDate: { type: Date, default: Date.now },
 });
