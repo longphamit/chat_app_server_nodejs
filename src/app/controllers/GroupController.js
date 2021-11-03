@@ -7,13 +7,19 @@ class GroupController {
         if(group[0]) return  res.status(200).json(group);
         return res.status(400).json({});
     }
+    async getGroupByRefId(req, res, next) {
+        const { ref_id } = req.query;
+        const group = await Group.find({ RefId: ref_id}).exec();
+        if(group[0]) return  res.status(200).json(group);
+        return res.status(400).json({});
+    }
     async getAllGroup(req, res, next) {
         const group = await Group.find({}).exec();
         return  res.status(200).json(group);
     }
     async createGroup(req, res, next) {
-        const { name,member} = req.body;
-        await Group.create({Name: name, Member: member}).then(result => {
+        const { name,member,ref_id} = req.body;
+        await Group.create({Name: name, Member: member,RefId: ref_id}).then(result => {
             res.status(201).json({result});
         })
         .catch(next);

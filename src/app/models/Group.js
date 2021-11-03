@@ -5,6 +5,7 @@ const ObjectId = Schema.ObjectId;
 const Group = new Schema({
   Id: ObjectId,
   Member: [],
-  Name:String
+  Name:String,
+  RefId: String,
 });
 module.exports = mongoose.model('Group', Group);
