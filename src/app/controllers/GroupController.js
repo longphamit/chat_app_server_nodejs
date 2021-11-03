@@ -14,7 +14,7 @@ class GroupController {
     async createGroup(req, res, next) {
         const { name,member} = req.body;
         await Group.create({Name: name, Member: member}).then(result => {
-            res.status(201).json({});
+            res.status(201).json({result});
         })
         .catch(next);
         return res.status(400).json({});
